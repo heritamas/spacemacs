@@ -172,6 +172,7 @@
     - [[#purely-functional][Purely functional]]
       - [[#agda][Agda]]
       - [[#elm][Elm]]
+      - [[#gleam][Gleam]]
       - [[#haskell][Haskell]]
       - [[#idris][Idris]]
     - [[#toml][TOML]]
@@ -275,6 +276,7 @@
   - [[#twitch][Twitch]]
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
+  - [[#whisper-layer-for-spacemacs][Whisper Layer for Spacemacs]]
 
 * Description
 
@@ -2385,6 +2387,16 @@ Features:
 - Integration with elm-reactor
 - Integration with elm-package
 
+**** Gleam
+[[file:+lang/gleam/README.org][+lang/gleam/README.org]]
+
+This layers adds support for [[https://gleam.run/][Gleam]]. It relies on the official [[https://github.com/gleam-lang/gleam-mode][gleam-mode]] package and [[https://github.com/emacsmirror/tree-sitter-indent][tree-sitter-indent]].
+
+Features:
+- [[https://gleam.run/news/v0.21-introducing-the-gleam-language-server/][Gleam language server]] integration
+- Formatting (=gleam format=)
+- Execution (=gleam build=, =gleam run=, =gleam test=)
+
 **** Haskell
 [[file:+lang/haskell/README.org][+lang/haskell/README.org]]
 
@@ -3389,7 +3401,7 @@ Features:
 ** Large Language Model Client
 [[file:+web-services/llm-client/README.org][+web-services/llm-client/README.org]]
 
-This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]].
+This layer enables usage of GPT Clients in Spacemacs using [[https://github.com/karthink/gptel][GPTel]] and [[https://github.com/s-kostyaev/ellama][Ellama]].
 
 Features:
 
@@ -3521,3 +3533,13 @@ P.S. wakati means time in Swahili
 
 Features:
 - Integration with Wakatime cloud based time tracking service
+
+** Whisper Layer for Spacemacs
+[[file:+web-services/whisper/README.org][+web-services/whisper/README.org]]
+
+This layer integrates the Whisper speech-to-text tool into Spacemacs, allowing for efficient transcription and audio processing within Emacs.
+
+Features:
+- Real-time transcription of audio files.
+- Support for multiple languages.
+- Selection of different base models for transcription.
