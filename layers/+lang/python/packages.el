@@ -37,7 +37,8 @@
     (helm-pydoc :requires helm)
     importmagic
     live-py-mode
-    (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el"))
+    (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el")
+          :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
     pip-requirements
     pipenv
@@ -47,13 +48,12 @@
     pydoc
     pyenv-mode
     (pylookup :location (recipe :fetcher local))
-    pytest
+    (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     pyvenv
     semantic
     sphinx-doc
     smartparens
-    stickyfunc-enhance
     xcscope
     window-purpose
     yapfify
@@ -99,10 +99,10 @@
     :commands (code-cells-mode)
     :init (add-hook 'python-mode-hook 'code-cells-mode)
     :config (spacemacs/set-leader-keys-for-minor-mode 'code-cells-mode
-            "gB" 'code-cells-backward-cell
-            "gF" 'code-cells-forward-cell
-            "sc" 'code-cells-eval
-            "sa" 'code-cells-eval-above)))
+              "gB" 'code-cells-backward-cell
+              "gF" 'code-cells-forward-cell
+              "sc" 'code-cells-eval
+              "sa" 'code-cells-eval-above)))
 
 (defun python/post-init-company ()
   ;; backend specific
@@ -429,16 +429,16 @@
       ;; the default in Emacs is M-r; C-r to search backward old output
       ;; and should not be changed
       (define-key inferior-python-mode-map
-        (kbd "C-r") 'comint-history-isearch-backward)
+                  (kbd "C-r") 'comint-history-isearch-backward)
       ;; this key binding is for recentering buffer in Emacs
       ;; it would be troublesome if Emacs user
       ;; Vim users can use this key since they have other key
       (define-key inferior-python-mode-map
-        (kbd "C-l") 'spacemacs/comint-clear-buffer))
+                  (kbd "C-l") 'spacemacs/comint-clear-buffer))
 
     ;; add this optional key binding for Emacs user, since it is unbound
     (define-key inferior-python-mode-map
-      (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
+                (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
 
     (setq spacemacs--python-shell-interpreter-origin
           (eval (car (get 'python-shell-interpreter 'standard-value))))
@@ -478,9 +478,6 @@ fix this issue."
           (call-interactively 'sp-backward-delete-char))))))
 (defun python/post-init-smartparens ()
   (add-hook 'inferior-python-mode-hook #'spacemacs//activate-smartparens))
-
-(defun python/post-init-stickyfunc-enhance ()
-  (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))
 
 (defun python/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope

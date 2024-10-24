@@ -220,6 +220,14 @@ Last but not least there are a lot of high class tutorials available on YouTube:
       brew install emacs-plus --with-spacemacs-icon --with-native-comp
       ```
 
+      You will require the latest version of Xcode Command Line tools, which can be
+      downloaded from the [Apple Developer Portal](https://developer.apple.com/download/all/)
+      or by running the following command:
+
+      ```sh
+      softwareupdate --all --install --force
+      ```
+
    2. [Emacs Mac Port][] adds native GUI support to Emacs 28. And the full list
       of features is available [here][Emacs Mac Port features].
 
@@ -457,10 +465,9 @@ Dock][icon-mac-instructions].
 ## Notes
 
 - Depending on the installed version of GnuTLS, securely installing Emacs
-  packages may fail. It may also fail if you have a bad internet environment.
-  In either case it is possible to install packages using `emacs --insecure`.
-  However be aware that this means your packages will be transferred using HTTP,
-  use at your own risk.
+  packages may fail. If this happens to you please update your OS and Emacs.
+  If you are behind a company proxy please trust the company firewall cert.
+  We do not longer support disabling https due to security reasons.
 
 - (*Windows)* If the following error occurs after starting Emacs:
 

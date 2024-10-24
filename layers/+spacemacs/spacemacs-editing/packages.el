@@ -470,14 +470,12 @@
     (spacemacs|add-toggle global-whitespace-cleanup
       :mode global-spacemacs-whitespace-cleanup-mode
       :status spacemacs-whitespace-cleanup-mode
-      :on (let ((spacemacs-whitespace-cleanup-globally t))
-            (spacemacs-whitespace-cleanup-mode))
-      :off (let ((spacemacs-whitespace-cleanup-globally t))
-             (spacemacs-whitespace-cleanup-mode -1))
       :on-message (spacemacs-whitespace-cleanup/on-message t)
       :documentation "Global automatic whitespace clean up."
       :evil-leader "t C-S-w")
     (with-eval-after-load 'ws-butler
+      ;; handle reloading configuration
+      (spacemacs/toggle-global-whitespace-cleanup-off)
       (when dotspacemacs-whitespace-cleanup
         (spacemacs/toggle-global-whitespace-cleanup-on)))
     :config
@@ -511,10 +509,10 @@
     (spacemacs/set-leader-keys "xe" 'string-edit-at-point)
     :config
     (spacemacs/set-leader-keys-for-minor-mode 'string-edit-at-point-mode
-      "," 'string-edit-conclude
-      "c" 'string-edit-conclude
-      "a" 'string-edit-abort
-      "k" 'string-edit-abort)))
+      "," 'string-edit-at-point-conclude
+      "c" 'string-edit-at-point-conclude
+      "a" 'string-edit-at-point-abort
+      "k" 'string-edit-at-point-abort)))
 
 (defun spacemacs-editing/init-multi-line ()
   (use-package multi-line
@@ -565,7 +563,8 @@ See variable `undo-tree-history-directory-alist'." dir))
   (use-package undo-fu
     :defer t
     :custom
-    (undo-fu-allow-undo-in-region t)))
+    (undo-fu-allow-undo-in-region t)
+    (undo-fu-ignore-keyboard-quit t)))
 
 (defun spacemacs-editing/init-undo-fu-session ()
   (use-package undo-fu-session
