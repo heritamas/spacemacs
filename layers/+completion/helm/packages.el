@@ -40,7 +40,6 @@
     helm-swoop
     helm-themes
     (helm-spacemacs-help :location local)
-    (helm-spacemacs-faq :location local)
     helm-xref
     imenu
     persp-mode
@@ -446,24 +445,20 @@
   (use-package helm-spacemacs-help
     :commands (helm-spacemacs-help-dotspacemacs
                helm-spacemacs-help
-               helm-spacemacs-help-faq
                helm-spacemacs-help-layers
                helm-spacemacs-help-packages
                helm-spacemacs-help-docs
                helm-spacemacs-help-toggles)
-    :init (spacemacs/set-leader-keys
-            "h ."   'helm-spacemacs-help-dotspacemacs
-            "h SPC" 'helm-spacemacs-help
-            "h f"   'helm-spacemacs-help-faq
-            "h l"   'helm-spacemacs-help-layers
-            "h p"   'helm-spacemacs-help-packages
-            "h r"   'helm-spacemacs-help-docs
-            "h t"   'helm-spacemacs-help-toggles)))
-
-(defun helm/init-helm-spacemacs-faq ()
-  (use-package helm-spacemacs-faq
-    :commands helm-spacemacs-help-faq
-    :init (spacemacs/set-leader-keys "h f" 'helm-spacemacs-help-faq)))
+    :init
+    (autoload 'helm-spacemacs-help-faq "helm-spacemacs-faq" nil t)
+    (spacemacs/set-leader-keys
+      "h ."   'helm-spacemacs-help-dotspacemacs
+      "h SPC" 'helm-spacemacs-help
+      "h f"   'helm-spacemacs-help-faq
+      "h l"   'helm-spacemacs-help-layers
+      "h p"   'helm-spacemacs-help-packages
+      "h r"   'helm-spacemacs-help-docs
+      "h t"   'helm-spacemacs-help-toggles)))
 
 (defun helm/init-helm-swoop ()
   (use-package helm-swoop
@@ -471,8 +466,7 @@
     :init
     (setq helm-swoop-split-with-multiple-windows t
           helm-swoop-split-direction 'split-window-vertically
-          helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function
-          helm-swoop-pre-input-function (lambda () ""))
+          helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function)
 
     (defun spacemacs/helm-swoop-split-window-function (&rest args)
       "Override to make helm settings (like `helm-split-window-default-side') work"
@@ -480,18 +474,6 @@
             (helm-full-frame nil)
             (pop-up-windows t))
         (apply 'helm-default-display-buffer args)))
-
-    (defun spacemacs/helm-swoop-region-or-symbol ()
-      "Call `helm-swoop' with default input."
-      (interactive)
-      (let ((helm-swoop-pre-input-function
-             (lambda ()
-               (if (region-active-p)
-                   (buffer-substring-no-properties (region-beginning)
-                                                   (region-end))
-                 (let ((thing (thing-at-point 'symbol t)))
-                   (if thing thing ""))))))
-        (call-interactively 'helm-swoop)))
 
     (defun spacemacs/helm-swoop-clear-cache ()
       "Call `helm-swoop--clear-cache' to clear the cache"
@@ -502,7 +484,7 @@
     (spacemacs/set-leader-keys
       "sC"    'spacemacs/helm-swoop-clear-cache
       "ss"    'helm-swoop
-      "sS"    'spacemacs/helm-swoop-region-or-symbol
+      "sS"    'helm-multi-swoop
       "s C-s" 'helm-multi-swoop-all)
 
     (evil-add-command-properties 'helm-swoop :jump t)))

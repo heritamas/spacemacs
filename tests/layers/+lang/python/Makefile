@@ -1,8 +1,8 @@
-## Makefile --- Spacemacs org tests
+## Makefile --- Spacemacs Core
 ##
 ## Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ##
-## Author: smile13241324 <smile13241324@gmail.com>
+## Author: Lin Sun <sunlin7 AT hotmail.com>
 ## URL: https://github.com/syl20bnr/spacemacs
 ##
 ## This file is not part of GNU Emacs.
@@ -23,7 +23,7 @@
 TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 LOAD_FILES = init.el
-UNIT_TEST_FILES =
+UNIT_TEST_FILES = $(wildcard *-utest.el)
 FUNC_TEST_FILES = $(wildcard *-ftest.el)
 
-include ../../spacemacs.mk
+include ../../../../spacemacs.mk

@@ -89,6 +89,9 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
   "If non-nil, automatically sort imports on save.")
 (put 'python-sort-imports-on-save 'safe-local-variable 'booleanp)
 
+(defvar python-virtualenv-management 'pyvenv
+  "The management backend for virtualenv, Possible value is `pet' or `pyvenv'")
+
 (defvar python-enable-importmagic nil
   "If non-nil, enable the importmagic feature.")
 
