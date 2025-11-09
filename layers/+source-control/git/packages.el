@@ -37,7 +37,6 @@
     git-messenger
     git-timemachine
     golden-ratio
-    (helm-git-grep :requires helm)
     magit
     (magit-delta :toggle git-enable-magit-delta-plugin)
     (magit-gitflow :toggle git-enable-magit-gitflow-plugin)
@@ -47,8 +46,7 @@
     org
     (orgit :requires org)
     (orgit-forge :requires (org forge))
-    smeargle
-    transient))
+    smeargle))
 
 
 (defun git/pre-init-golden-ratio ()
@@ -68,13 +66,6 @@
     ;; See `git-packages' form in this file.
     (unless (spacemacs/system-is-mswindows)
       (add-to-list 'spacemacs-evil-collection-allowed-list 'forge))))
-
-(defun git/init-helm-git-grep ()
-  (use-package helm-git-grep
-    :defer t
-    :init (spacemacs/set-leader-keys
-            "g/" 'helm-git-grep
-            "g*" 'helm-git-grep-at-point)))
 
 (defun git/init-code-review ()
   (use-package code-review
@@ -158,6 +149,7 @@
     ;; key bindings
     (spacemacs/declare-prefix "gf" "file")
     (spacemacs/set-leader-keys
+      "feg" '("Magit status in Spacemacs dir" . spacemacs/magit-status)
       "gb"  'spacemacs/git-blame-transient-state/body
       "gc"  'magit-clone
       "gfF" 'magit-find-file
@@ -329,19 +321,6 @@
       "gHc" 'smeargle-clear
       "gHh" 'smeargle-commits
       "gHt" 'smeargle)))
-
-(defun git/pre-init-transient ()
-  (setq-default transient-history-file (expand-file-name "transient/history.el"
-                                                         spacemacs-cache-directory))
-  (setq-default transient-levels-file (expand-file-name "transient/levels.el"
-                                                        spacemacs-cache-directory))
-  ;; Values are the users saved preferences so they should persist.
-  (setq-default transient-values-file (expand-file-name "transient/values.el"
-                                                        dotspacemacs-directory)))
-
-(defun git/init-transient ()
-  (use-package transient
-    :defer t))
 
 (defun git/init-forge ()
   (use-package forge
