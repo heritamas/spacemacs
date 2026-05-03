@@ -1,4 +1,4 @@
-;;; packages.el --- Mandatory Bootstrap Layer packages File  -*- lexical-binding: nil; -*-
+;;; packages.el --- Mandatory Bootstrap Layer packages File  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
@@ -78,8 +78,6 @@
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be required explicitly, the autoload seems to not
   ;; work properly sometimes.
-  ;; `evil-collection' wants this value
-  (setq evil-want-keybinding nil)
   (require 'evil)
   (evil-mode 1)
 

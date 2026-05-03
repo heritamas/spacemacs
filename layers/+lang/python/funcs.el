@@ -243,7 +243,6 @@ Equivalent to: autoflake --remove-all-unused-imports --in-place <FILE>"
                                        (line-beginning-position)
                                        (line-end-position)))))))
     (cond ((member version (pyenv-mode-versions))
-           (setenv "VIRTUAL_ENV" version)
            (pyenv-mode-set version))
           (t (message "pyenv: version `%s' is not installed (set by %s)"
                       version file-path)))))
@@ -625,6 +624,13 @@ Bind formatter to '==' for LSP and '='for all other backends."
         (start (point-at-bol))
         (end (point-at-eol)))
     (python-shell-send-region start end)))
+
+(defun spacemacs/python-shell-send-line-switch ()
+  "Send the current line to shell and switch to it insert mode."
+  (interactive)
+  (call-interactively #'spacemacs/python-shell-send-line)
+  (python-shell-switch-to-shell)
+  (evil-insert-state))
 
 (defun spacemacs/python-shell-send-statement ()
   "Send the statement under cursor to shell."
